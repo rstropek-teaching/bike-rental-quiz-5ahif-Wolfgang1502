@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/BikeRental/.vs/BikeRental/v15
+/BikeRental/BikeRental/bin
+/BikeRental/BikeRental/obj
+/BikeRental/BikeRentalTest/bin/Debug/netcoreapp2.0
+/BikeRental/BikeRentalTest/obj

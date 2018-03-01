@@ -1,0 +1,323 @@
+swagger: '2.0'
+info:
+  version: v1
+  title: BikeRental
+paths:
+  /api/getBikes:
+    get:
+      tags:
+        - Bike
+      operationId: ApiGetBikesGet
+      consumes: []
+      produces: []
+      parameters:
+        - name: sorting
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Success
+  /api/addBike:
+    post:
+      tags:
+        - Bike
+      operationId: ApiAddBikePost
+      consumes:
+        - application/json-patch+json
+        - application/json
+        - text/json
+        - application/*+json
+      produces: []
+      parameters:
+        - name: bike
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Bike'
+      responses:
+        '200':
+          description: Success
+  '/api/updateBike/{id}':
+    put:
+      tags:
+        - Bike
+      operationId: ApiUpdateBikeByIdPut
+      consumes:
+        - application/json-patch+json
+        - application/json
+        - text/json
+        - application/*+json
+      produces: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: newBike
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Bike'
+      responses:
+        '200':
+          description: Success
+  '/api/deleteBike/{id}':
+    delete:
+      tags:
+        - Bike
+      operationId: ApiDeleteBikeByIdDelete
+      consumes: []
+      produces: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+  /api/getCustomers:
+    get:
+      tags:
+        - Customer
+      operationId: ApiGetCustomersGet
+      consumes: []
+      produces: []
+      parameters:
+        - name: lastName
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Success
+  /api/addCustomer:
+    post:
+      tags:
+        - Customer
+      operationId: ApiAddCustomerPost
+      consumes:
+        - application/json-patch+json
+        - application/json
+        - text/json
+        - application/*+json
+      produces: []
+      parameters:
+        - name: customer
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: Success
+  '/api/updateCustomer/{id}':
+    put:
+      tags:
+        - Customer
+      operationId: ApiUpdateCustomerByIdPut
+      consumes:
+        - application/json-patch+json
+        - application/json
+        - text/json
+        - application/*+json
+      produces: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: newCustomer
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: Success
+  '/api/deleteCustomer/{id}':
+    delete:
+      tags:
+        - Customer
+      operationId: ApiDeleteCustomerByIdDelete
+      consumes: []
+      produces: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+  /api/getRentals:
+    get:
+      tags:
+        - Customer
+      operationId: ApiGetRentalsGet
+      consumes: []
+      produces: []
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+  /api/startRental:
+    get:
+      tags:
+        - Rental
+      operationId: ApiStartRentalGet
+      consumes: []
+      produces: []
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          type: integer
+          format: int32
+        - name: bikeId
+          in: query
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+  /api/endRental:
+    get:
+      tags:
+        - Rental
+      operationId: ApiEndRentalGet
+      consumes: []
+      produces: []
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          type: integer
+          format: int32
+        - name: bikeId
+          in: query
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+  /api/markAsPaid:
+    get:
+      tags:
+        - Rental
+      operationId: ApiMarkAsPaidGet
+      consumes: []
+      produces: []
+      parameters:
+        - name: rentalId
+          in: query
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+  /api/unpaidRentals:
+    get:
+      tags:
+        - Rental
+      operationId: ApiUnpaidRentalsGet
+      consumes: []
+      produces: []
+      responses:
+        '200':
+          description: Success
+definitions:
+  Bike:
+    required:
+      - brand
+      - purchaseDate
+      - priceFirstHour
+      - priceAdditionalHour
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      brand:
+        maxLength: 25
+        type: string
+      purchaseDate:
+        format: date-time
+        type: string
+      notes:
+        maxLength: 1000
+        type: string
+      lastService:
+        format: date-time
+        type: string
+      priceFirstHour:
+        format: double
+        minimum: 0
+        type: number
+      priceAdditionalHour:
+        format: double
+        minimum: 1
+        type: number
+      category:
+        format: int32
+        enum:
+          - 0
+          - 1
+          - 2
+          - 3
+        type: integer
+  Customer:
+    required:
+      - firstName
+      - lastName
+      - birthday
+      - street
+      - zipCode
+      - town
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      gender:
+        format: int32
+        enum:
+          - 0
+          - 1
+          - 2
+        type: integer
+      firstName:
+        maxLength: 50
+        type: string
+      lastName:
+        maxLength: 75
+        type: string
+      birthday:
+        format: date-time
+        type: string
+      street:
+        maxLength: 75
+        type: string
+      houseNumber:
+        maxLength: 10
+        type: string
+      zipCode:
+        maxLength: 10
+        type: string
+      town:
+        maxLength: 75
+        type: string
+securityDefinitions: {}

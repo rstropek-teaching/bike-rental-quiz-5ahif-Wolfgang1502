@@ -1,0 +1,3 @@
+Internetlink: http://bikerentalpublishbauer.azurewebsites.net/
+
+Beschreibung im swagger.yaml
